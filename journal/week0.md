@@ -3,6 +3,7 @@
     - [Conceptual and Napkin Diagram](#conceptual-and-napkin-diagram)
       - [Napkin Design](#napkin-design)
       - [Conceptual Design](#conceptual-design)
+    - [Logical Architectual Diagram](#logical-architectual-diagram)
     - [Weekly Outcome](#weekly-outcome)
   - [Business Scenario](#business-scenario)
   - [Architecture](#architecture)
@@ -19,8 +20,8 @@
 - [x] Week 0 - Live Streamed Video(13/02/2023)
 - [ ] Chirag's Week 0 - Spend Considerations
 - [ ] Ashish's Week 0 - Security Considerations
-- [ ] Recreate Conceptual Diagram in Lucid Charts or on a Napkin (13/02/2023)
-- [ ] Logical Architectual Diagram in Lucid Charts
+- [x] Recreate Conceptual Diagram in Lucid Charts or on a Napkin (13/02/2023)
+- [x] Logical Architectual Diagram in Lucid Charts (13/02/2023)
 - [ ] Create an Admin User
 - [ ] Use CloudShell
 - [ ] Generate AWS Credentials
@@ -34,6 +35,9 @@
 
 #### Conceptual Design
 ![Conceptual Diagram](../_docs/assets/conceptual_diagram.png)
+
+### Logical Architectual Diagram
+
 
 ### Weekly Outcome
 - Gain confidence when working meter-billing with a Cloud Service Provider (CSP)
