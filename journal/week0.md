@@ -41,7 +41,7 @@
 - [x] Chirag's Week 0 - Spend Considerations (14/02/2023)
 - [x] Ashish's Week 0 - Security Considerations (14/02/2023)
 - [x] Recreate Conceptual Diagram in Lucid Charts or on a Napkin (15/02/2023)
-- [ ] Logical Architectual Diagram in Lucid Charts (15/02/2023)
+- [x] Logical Architectual Diagram in Lucid Charts (15/02/2023)
 - [x] Create an Admin User(16/02/2023)
 - [x] Use CloudShell(16/02/2023)
 - [x] Generate AWS Credentials(16/02/2023)
@@ -62,8 +62,8 @@
 
 #### Logical Architectual Diagram
 - Defines the system 
-- environment without actual names or size
-  
+- Environment without actual names or size
+![logical_design](../_docs/assets/logical_diagram.png)
 #### Physical Design
 - Representation of the actual thing that was built
 - Ip Address name
