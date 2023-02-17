@@ -1,11 +1,21 @@
 - [Week-0 Billing and Architecture](#week-0-billing-and-architecture)
   - [Task List of 12/02/2023 to 18/02/2023](#task-list-of-12022023-to-18022023)
-  - [Conceptual and Napkin Diagram](#conceptual-and-napkin-diagram)
+  - [Homework Summary](#homework-summary)
+    - [Conceptual and Napkin Diagram](#conceptual-and-napkin-diagram)
       - [Napkin Design](#napkin-design)
       - [Conceptual Design](#conceptual-design)
       - [Logical Architectual Diagram](#logical-architectual-diagram)
       - [Physical Design](#physical-design)
       - [Application Layer](#application-layer)
+    - [Install AWS CLI](#install-aws-cli)
+    - [Create a new User and Generate AWS Credentials](#create-a-new-user-and-generate-aws-credentials)
+    - [Set Environment Variable in gitpod](#set-environment-variable-in-gitpod)
+    - [Check that the AWS CLI is working and you are the expected user](#check-that-the-aws-cli-is-working-and-you-are-the-expected-user)
+    - [Enable Billing](#enable-billing)
+    - [Creating a Billing Alarm](#creating-a-billing-alarm)
+      - [Create SNS Topic](#create-sns-topic)
+      - [Create Alarm](#create-alarm)
+      - [Create an AWS Budget](#create-an-aws-budget)
   - [Chirag's Week 0 - Spend Considerations](#chirags-week-0---spend-considerations)
       - [Aws Pricing basics and Free Tier](#aws-pricing-basics-and-free-tier)
   - [Ashish's Week 0 - Security Considerations](#ashishs-week-0---security-considerations)
@@ -15,15 +25,6 @@
       - [Why cloud security requires practice](#why-cloud-security-requires-practice)
       - [Cloud Security Best Practice](#cloud-security-best-practice)
       - [Security Best Practices](#security-best-practices)
-  - [Install AWS CLI](#install-aws-cli)
-    - [Create a new User and Generate AWS Credentials](#create-a-new-user-and-generate-aws-credentials)
-    - [Set Env Vars](#set-env-vars)
-    - [Check that the AWS CLI is working and you are the expected user](#check-that-the-aws-cli-is-working-and-you-are-the-expected-user)
-  - [Enable Billing](#enable-billing)
-  - [Creating a Billing Alarm](#creating-a-billing-alarm)
-    - [Create SNS Topic](#create-sns-topic)
-      - [Create Alarm](#create-alarm)
-  - [Create an AWS Budget](#create-an-aws-budget)
   - [Well Architected Tool](#well-architected-tool)
   - [Tech Stacks](#tech-stacks)
   - [Iron triangle Management](#iron-triangle-management)
@@ -48,12 +49,21 @@
 - [x] Installed AWS CLI(16/02/2023)
 - [x] Create a Billing Alarm (14/02/2023)
 - [x] Create a Budget (14/02/2023)
-- [ ] Well Architected Tool(17/02/2023)
+- [x] Well Architected Tool(17/02/2023)
+- [x] Homework Summary (17/02/2023)
 
-## Conceptual and Napkin Diagram
+
+## Homework Summary 
+
+I was able to completed all the assignment.
+I faced challenge during showing the billing console in the IAM User billing console.
+I overcome  the above issue by enabling the billing console setting in root account settings
+
+### Conceptual and Napkin Diagram
 - Created by business stakeholders and architects
 - organizers and define concept and rules
 - Napkin Design
+
 #### Napkin Design
  <img src="../_docs/assets/napkin_design.jpg" alt="Napkin_design" width="500" height="500">
 
@@ -63,12 +73,118 @@
 #### Logical Architectual Diagram
 - Defines the system 
 - Environment without actual names or size
+- https://lucid.app/lucidchart/d2099518-39c3-4584-ae5c-e6afd0e54dfa/edit?viewport_loc=-472%2C-172%2C3156%2C1646%2C0_0&invitationId=inv_6dfb2cb9-f0b4-4e1b-b356-84dbada70f0d
 ![logical_design](../_docs/assets/logical_diagram.png)
+
 #### Physical Design
 - Representation of the actual thing that was built
 - Ip Address name
 #### Application Layer
 ![Application_layers](../_docs/assets/application_layer.png)
+
+### Install AWS CLI
+
+- Install the AWS CLI when our Gitpod enviroment lanuches.
+- Set AWS CLI to use partial autoprompt mode to make it easier to debug CLI commands.
+
+Update our `.gitpod.yml` to include the following task.
+
+```sh
+tasks:
+  - name: aws-cli
+    env:
+      AWS_CLI_AUTO_PROMPT: on-partial
+    init: |
+      cd /workspace
+      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+      unzip awscliv2.zip
+      sudo ./aws/install
+      cd $THEIA_WORKSPACE_ROOT
+```
+
+### Create a new User and Generate AWS Credentials
+
+- Go to (IAM Users Console](https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/users) 
+- Create a new user
+- `Enable console access` for the user
+- Create a new `Admin` Group and apply `AdministratorAccess`
+- Create the user and go find and click into the user
+- Click on `Security Credentials` and `Create Access Key`
+- Choose AWS CLI Access
+- Download the CSV with the credentials
+
+### Set Environment Variable in gitpod
+
+Set these credentials for the current bash terminal
+```
+export AWS_ACCESS_KEY_ID="XXXXX"
+export AWS_SECRET_ACCESS_KEY="XXXXX"
+export AWS_DEFAULT_REGION="XXXXX"
+```
+Tell Gitpod to remember these credentials if we relaunch our workspaces
+```
+gp env AWS_ACCESS_KEY_ID="XXXXX"
+gp env AWS_SECRET_ACCESS_KEY="XXXXX"
+gp env AWS_DEFAULT_REGION="XXXXX"
+```
+
+### Check that the AWS CLI is working and you are the expected user
+
+```sh
+aws sts get-caller-identity
+```
+
+You should see something like this:
+```json
+{
+    "UserId": "XXXX",
+    "Account": "XXXX",
+    "Arn": "XXXXX"
+}
+```
+
+### Enable Billing 
+
+- In your Root Account go to the [Billing Page](https://console.aws.amazon.com/billing/)
+- Under `Billing Preferences` Choose `Receive Billing Alerts`
+- Save Preferences
+
+### Creating a Billing Alarm
+
+#### Create SNS Topic
+
+We'll create a SNS Topic
+```sh
+aws sns create-topic --name DailyEstimatedCharges
+```
+![sns](../_docs/assets/sns.png)
+```sh
+aws sns subscribe \
+    --topic-arn TopicARN \
+    --protocol email \
+    --notification-endpoint your@email.com
+```
+
+Check your email and confirm the subscription
+![confirmation](../_docs/assets/mailconfirm.png)
+#### Create Alarm
+
+```sh
+aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
+```
+![alarm](../_docs/assets/alarm.png)
+#### Create an AWS Budget
+
+```sh
+aws sts get-caller-identity --query Account --output text
+```
+```sh
+aws budgets create-budget \
+    --account-id AccountID \
+    --budget file://aws/json/budget.json \
+    --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.jsons
+```
+![budget](../_docs/assets/budget.png)
 
 ##  Chirag's Week 0 - Spend Considerations
 #### Aws Pricing basics and Free Tier
@@ -124,109 +240,6 @@
 - Shared Responsibility of Threat Detection
 - Inicident Response Plans to include Cloud
 
-## Install AWS CLI
-
-- Iinstall the AWS CLI when our Gitpod enviroment lanuches.
-- Set AWS CLI to use partial autoprompt mode to make it easier to debug CLI commands.
-
-Update our `.gitpod.yml` to include the following task.
-
-```sh
-tasks:
-  - name: aws-cli
-    env:
-      AWS_CLI_AUTO_PROMPT: on-partial
-    init: |
-      cd /workspace
-      curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-      unzip awscliv2.zip
-      sudo ./aws/install
-      cd $THEIA_WORKSPACE_ROOT
-```
-
-We'll also run these commands indivually to perform the install manually
-
-### Create a new User and Generate AWS Credentials
-
-- Go to (IAM Users Console](https://us-east-1.console.aws.amazon.com/iamv2/home?region=us-east-1#/users) andrew create a new user
-- `Enable console access` for the user
-- Create a new `Admin` Group and apply `AdministratorAccess`
-- Create the user and go find and click into the user
-- Click on `Security Credentials` and `Create Access Key`
-- Choose AWS CLI Access
-- Download the CSV with the credentials
-
-### Set Env Vars
-
-Set these credentials for the current bash terminal
-```
-export AWS_ACCESS_KEY_ID=""
-export AWS_SECRET_ACCESS_KEY=""
-export AWS_DEFAULT_REGION=us-east-1
-```
-Tell Gitpod to remember these credentials if we relaunch our workspaces
-```
-gp env AWS_ACCESS_KEY_ID=""
-gp env AWS_SECRET_ACCESS_KEY=""
-gp env AWS_DEFAULT_REGION=us-east-1
-```
-
-### Check that the AWS CLI is working and you are the expected user
-
-```sh
-aws sts get-caller-identity
-```
-
-You should see something like this:
-```json
-{
-    "UserId": "XXXX",
-    "Account": "XXXX",
-    "Arn": "XXXXX"
-}
-```
-
-## Enable Billing 
-
-- In your Root Account go to the [Billing Page](https://console.aws.amazon.com/billing/)
-- Under `Billing Preferences` Choose `Receive Billing Alerts`
-- Save Preferences
-
-## Creating a Billing Alarm
-
-### Create SNS Topic
-
-We'll create a SNS Topic
-```sh
-aws sns create-topic --name billing-alarm
-```
-
-```sh
-aws sns subscribe \
-    --topic-arn TopicARN \
-    --protocol email \
-    --notification-endpoint your@email.com
-```
-
-Check your email and confirm the subscription
-
-#### Create Alarm
-
-```sh
-aws cloudwatch put-metric-alarm --cli-input-json file://aws/json/alarm_config.json
-```
-
-## Create an AWS Budget
-
-```sh
-aws sts get-caller-identity --query Account --output text
-```
-```sh
-aws budgets create-budget \
-    --account-id AccountID \
-    --budget file://aws/json/budget.json \
-    --notifications-with-subscribers file://aws/json/budget-notifications-with-subscribers.json
-```
 ## Well Architected Tool
 The 6 pillars of AWS well architected tools are
 1. Operational Excellence
