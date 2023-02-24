@@ -7,6 +7,13 @@
     - [Gitpod](#gitpod)
     - [Codespaces](#codespaces)
     - [Cloud9](#cloud9)
+  - [Container Security Considerations](#container-security-considerations)
+    - [What is Container Security?](#what-is-container-security)
+    - [Why care about cloud security?](#why-care-about-cloud-security)
+    - [Why container security requires practice](#why-container-security-requires-practice)
+    - [Container Security Components](#container-security-components)
+    - [Top 10 Security Best Practices](#top-10-security-best-practices)
+    - [Tools](#tools)
   - [Containerize Application (Dockerfiles, Docker Compose](#containerize-application-dockerfiles-docker-compose)
     - [Backend Docker creation](#backend-docker-creation)
       - [Run Python](#run-python)
@@ -57,7 +64,7 @@
 ---------------
 - [x] Watched Grading Homework Summaries(19/02/2023)
 - [x] Watched Week 1 - Live Streamed Video(19/02/2023)
-- [ ] Watched Ashish's Week 1 - Container Security(24/02/2023)
+- [x] Watched Ashish's Week 1 - Container Security(24/02/2023)
 - [x] Week 1 - Containerize Application (Dockerfiles, Docker Compose)(24/02/2023)
 - [x] Document the Notification Endpoint for the OpenAI Document(23/02/2023)
 - [x] Write a Flask Backend Endpoint for Notifications(23/02/2023)
@@ -82,6 +89,50 @@
  - Better avoid due to cost related difficulty
 
 ---------------
+## Container Security Considerations
+---------------
+### What is Container Security?
+- Container Security is the practice of protecting your applicatoins hosted on computer services like containers.
+- Common Examples of applications can be SPA, Microservices, API etc
+
+### Why care about cloud security?
+- Container First Strategy
+- Cloud Native
+- Reducing impact of breach
+- Automation can reduce recovery time to known good state fairly easy
+
+### Why container security requires practice
+- Complexity with containers
+- Relying on CSPs for features
+- UnManaged Requiers a lot more hours of work.
+
+### Container Security Components
+- Docker & Host Configuration
+- Security Images
+- Secret Management
+- Application Security
+- Data Security
+- Monitoring Containers
+- Compliance Frame Works
+
+### Top 10 Security Best Practices
+- Keep Host & Docker Updated to latest security Patches
+- Docker daemon & containers should run in non-root user mode
+- Image Vulnerability Scanning
+- Trusting a Private vs Public Image Registry
+- No Sensitive Data in Docker files or Images
+- Use Secret Management Services to Share secrets
+- Read only File system and Volume for Docker
+- Separate databases for long term storage
+- Use DevSecOps practices while building application security
+- Ensure all Code is tested for vulnerabilities before production use
+
+### Tools
+- Snyk (Open Source Available)
+- AWS Secrets Manager  
+- Clair / AWS Inspector 
+- Hashicorp Vault
+---------------
 ## Containerize Application (Dockerfiles, Docker Compose
 ---------------
 
@@ -96,12 +147,6 @@ export BACKEND_URL="*"
 python3 -m flask run --host=0.0.0.0 --port=4567
 cd ..
 ```
-
-- make sure to unlock the port on the port tab
-- open the link for 4567 in your browser
-- append to the url to `/api/activities/home`
-- you should get back json
-
 #### Add Dockerfile
 
 Create a file here: `backend-flask/Dockerfile`
