@@ -3,19 +3,24 @@
 
 - [Week 1 — App Containerization](#week-1--app-containerization)
   - [Task List of 19/02/2023 to 25/02/2023](#task-list-of-19022023-to-25022023)
-  - [Backend Docker creation](#backend-docker-creation)
-    - [Run Python](#run-python)
-    - [Add Dockerfile](#add-dockerfile)
-      - [Docker File Link](#docker-file-link)
-      - [Build the backend container](#build-the-backend-container)
-      - [Run the backend container](#run-the-backend-container)
-  - [Frontend Docker creation](#frontend-docker-creation)
-    - [Run NPM Install](#run-npm-install)
-    - [Create Docker File](#create-docker-file)
-      - [Docker File Link](#docker-file-link-1)
-      - [Build the Frontend Container](#build-the-frontend-container)
-      - [Run the Frontend Container](#run-the-frontend-container)
-  - [Multiple Containers](#multiple-containers)
+  - [Spending Considerations](#spending-considerations)
+    - [Gitpod](#gitpod)
+    - [Codespaces](#codespaces)
+    - [Cloud9](#cloud9)
+  - [Containerize Application (Dockerfiles, Docker Compose](#containerize-application-dockerfiles-docker-compose)
+    - [Backend Docker creation](#backend-docker-creation)
+      - [Run Python](#run-python)
+      - [Add Dockerfile](#add-dockerfile)
+        - [Docker File Link](#docker-file-link)
+        - [Build the backend container](#build-the-backend-container)
+        - [Run the backend container](#run-the-backend-container)
+    - [Frontend Docker creation](#frontend-docker-creation)
+      - [Run NPM Install](#run-npm-install)
+      - [Create Docker File](#create-docker-file)
+        - [Docker File Link](#docker-file-link-1)
+        - [Build the Frontend Container](#build-the-frontend-container)
+        - [Run the Frontend Container](#run-the-frontend-container)
+    - [Multiple Containers](#multiple-containers)
       - [Create a docker-compose file](#create-a-docker-compose-file)
   - [Document the Notification Endpoint for the OpenAI Document](#document-the-notification-endpoint-for-the-openai-document)
     - [API Code](#api-code)
@@ -53,18 +58,36 @@
 - [x] Watched Grading Homework Summaries(19/02/2023)
 - [x] Watched Week 1 - Live Streamed Video(19/02/2023)
 - [ ] Watched Ashish's Week 1 - Container Security(24/02/2023)
-- [ ] Week 1 - Containerize Application (Dockerfiles, Docker Compose)(24/02/2023)
+- [x] Week 1 - Containerize Application (Dockerfiles, Docker Compose)(24/02/2023)
 - [x] Document the Notification Endpoint for the OpenAI Document(23/02/2023)
 - [x] Write a Flask Backend Endpoint for Notifications(23/02/2023)
 - [x] Write a React Page for Notifications(23/02/2023)
 - [x] Run DynamoDB Local Container and ensure it works(23/02/2023)
 - [x] Run Postgres Container and ensure it works(24/02/2023)
 
+
 ---------------
-## Backend Docker creation
+## Spending Considerations
+---------------
+### Gitpod
+- upto 50hrs free
+- free 500 credit 
+- Monthly renewal
+
+### Codespaces
+ - upto 60hrs free
+
+### Cloud9
+ - t2.micro using free tier
+ - Better avoid due to cost related difficulty
+
+---------------
+## Containerize Application (Dockerfiles, Docker Compose
 ---------------
 
-### Run Python
+### Backend Docker creation
+
+#### Run Python
 
 ```sh
 cd backend-flask
@@ -79,7 +102,7 @@ cd ..
 - append to the url to `/api/activities/home`
 - you should get back json
 
-### Add Dockerfile
+#### Add Dockerfile
 
 Create a file here: `backend-flask/Dockerfile`
 
@@ -93,28 +116,27 @@ ENV FLASK_ENV=development
 EXPOSE ${PORT}
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 ```
-#### Docker File Link
+##### Docker File Link
 [Dockerfile](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/backend-flask/Dockerfile)
 
-#### Build the backend container
+##### Build the backend container
 
 ```sh
 docker build -t  backend-flask ./backend-flask
 ```
 ![python_docker_build](../_docs/assets/python_docker_build.png)
 
-#### Run the backend container
+##### Run the backend container
  
 ```sh
 docker run --rm -p 4567:4567 -it backend-flask
 ```
 ![python_docker_run](../_docs/assets/python_docker_run.png)
 
----------------
-## Frontend Docker creation
----------------
 
-### Run NPM Install
+### Frontend Docker creation
+
+#### Run NPM Install
 
 ```
 cd frontend-react-js
@@ -122,7 +144,7 @@ npm i
 ```
 ![npm_version](../_docs/assets/npm_version.png)
 
-### Create Docker File
+#### Create Docker File
 
 Create a file here: `frontend-react-js/Dockerfile`
 
@@ -135,26 +157,25 @@ RUN npm install
 EXPOSE ${PORT}
 CMD ["npm", "start"]
 ```
-#### Docker File Link
+##### Docker File Link
 [Dockerfile](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/Dockerfile)
 
 
-#### Build the Frontend Container
+##### Build the Frontend Container
 
 ```sh
 docker build -t frontend-react-js ./frontend-react-js
 ```
 ![frontend_docker_build](../_docs/assets/front_docker_build.png)
-#### Run the Frontend Container
+
+##### Run the Frontend Container
 
 ```sh
 docker run -p 3000:3000 -d frontend-react-js
 ```
 ![frontend_docker_run](../_docs/assets/front_docker_run.png)
 
----------------
-## Multiple Containers
----------------
+### Multiple Containers
 
 #### Create a docker-compose file
 
