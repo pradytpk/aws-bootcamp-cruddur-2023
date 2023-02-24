@@ -94,7 +94,7 @@ EXPOSE ${PORT}
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 ```
 #### Docker File Link
-[Dockerfile]([https://](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/backend-flask/Dockerfile))
+[Dockerfile](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/backend-flask/Dockerfile)
 
 #### Build the backend container
 
@@ -136,7 +136,7 @@ EXPOSE ${PORT}
 CMD ["npm", "start"]
 ```
 #### Docker File Link
-[Dockerfile]([https://](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/Dockerfile))
+[Dockerfile](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/Dockerfile)
 
 
 #### Build the Frontend Container
