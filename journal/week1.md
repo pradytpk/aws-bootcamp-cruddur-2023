@@ -1,66 +1,66 @@
-# Week 1 — App Containerization
+# 1. Week 1 — App Containerization
 ---------------
 
-- [Week 1 — App Containerization](#week-1--app-containerization)
-  - [Task List of 19/02/2023 to 25/02/2023](#task-list-of-19022023-to-25022023)
-  - [Spending Considerations](#spending-considerations)
-    - [Gitpod](#gitpod)
-    - [Codespaces](#codespaces)
-    - [Cloud9](#cloud9)
-  - [Container Security Considerations](#container-security-considerations)
-    - [What is Container Security?](#what-is-container-security)
-    - [Why care about cloud security?](#why-care-about-cloud-security)
-    - [Why container security requires practice](#why-container-security-requires-practice)
-    - [Container Security Components](#container-security-components)
-    - [Top 10 Security Best Practices](#top-10-security-best-practices)
-    - [Tools](#tools)
-  - [Containerize Application (Dockerfiles, Docker Compose](#containerize-application-dockerfiles-docker-compose)
-    - [Backend Docker creation](#backend-docker-creation)
-      - [Run Python](#run-python)
-      - [Add Dockerfile](#add-dockerfile)
-        - [Docker File Link](#docker-file-link)
-        - [Build the backend container](#build-the-backend-container)
-        - [Run the backend container](#run-the-backend-container)
-    - [Frontend Docker creation](#frontend-docker-creation)
-      - [Run NPM Install](#run-npm-install)
-      - [Create Docker File](#create-docker-file)
-        - [Docker File Link](#docker-file-link-1)
-        - [Build the Frontend Container](#build-the-frontend-container)
-        - [Run the Frontend Container](#run-the-frontend-container)
-    - [Multiple Containers](#multiple-containers)
-      - [Create a docker-compose file](#create-a-docker-compose-file)
-  - [Document the Notification Endpoint for the OpenAI Document](#document-the-notification-endpoint-for-the-openai-document)
-    - [API Code](#api-code)
-    - [Open API document preview](#open-api-document-preview)
-  - [Write a Flask Backend Endpoint for Notifications](#write-a-flask-backend-endpoint-for-notifications)
-    - [Notification Backend Response](#notification-backend-response)
-    - [Notification Backend Code Commit Link](#notification-backend-code-commit-link)
-  - [Write a React Page for Notifications](#write-a-react-page-for-notifications)
-    - [Notification Frontend Screen](#notification-frontend-screen)
-    - [Notification Frontend Code Commit Link](#notification-frontend-code-commit-link)
-  - [Run DynamoDB Local Container and ensure it works](#run-dynamodb-local-container-and-ensure-it-works)
-    - [Docker setup for DynamoDB](#docker-setup-for-dynamodb)
-      - [Make Sure Docker is Running](#make-sure-docker-is-running)
-        - [Create a table](#create-a-table)
-        - [Create an Item](#create-an-item)
-        - [List Tables](#list-tables)
-        - [Get Records](#get-records)
-  - [Run Postgres Container and ensure it works](#run-postgres-container-and-ensure-it-works)
-    - [Docker setup for Postgres](#docker-setup-for-postgres)
-    - [Gitpod client setup for Postgres](#gitpod-client-setup-for-postgres)
-    - [Postgres Plugin setup check](#postgres-plugin-setup-check)
-  - [References](#references)
-    - [VSCode Docker Extension](#vscode-docker-extension)
-      - [Return the container id into an Environment variables](#return-the-container-id-into-an-environment-variables)
-      - [Get Container Images or Running Container Ids](#get-container-images-or-running-container-ids)
-      - [Send Curl to Test Server](#send-curl-to-test-server)
-      - [Check Container Logs](#check-container-logs)
-      - [Debugging  adjacent containers with other containers](#debugging--adjacent-containers-with-other-containers)
-      - [Gain Access to a Container](#gain-access-to-a-container)
-      - [Delete an Image](#delete-an-image)
-      - [Overriding Ports](#overriding-ports)
+- [1. Week 1 — App Containerization](#1-week-1--app-containerization)
+  - [1.1. Task List of 19/02/2023 to 25/02/2023](#11-task-list-of-19022023-to-25022023)
+  - [1.2. Spending Considerations](#12-spending-considerations)
+    - [1.2.1. Gitpod](#121-gitpod)
+    - [1.2.2. Codespaces](#122-codespaces)
+    - [1.2.3. Cloud9](#123-cloud9)
+  - [1.3. Container Security Considerations](#13-container-security-considerations)
+    - [1.3.1. What is Container Security?](#131-what-is-container-security)
+    - [1.3.2. Why care about cloud security?](#132-why-care-about-cloud-security)
+    - [1.3.3. Why container security requires practice](#133-why-container-security-requires-practice)
+    - [1.3.4. Container Security Components](#134-container-security-components)
+    - [1.3.5. Top 10 Security Best Practices](#135-top-10-security-best-practices)
+    - [1.3.6. Tools](#136-tools)
+  - [1.4. Containerize Application (Dockerfiles, Docker Compose](#14-containerize-application-dockerfiles-docker-compose)
+    - [1.4.1. Backend Docker creation](#141-backend-docker-creation)
+      - [1.4.1.1. Run Python](#1411-run-python)
+      - [1.4.1.2. Add Dockerfile](#1412-add-dockerfile)
+        - [1.4.1.2.1. Docker File Link](#14121-docker-file-link)
+        - [1.4.1.2.2. Build the backend container](#14122-build-the-backend-container)
+        - [1.4.1.2.3. Run the backend container](#14123-run-the-backend-container)
+    - [1.4.2. Frontend Docker creation](#142-frontend-docker-creation)
+      - [1.4.2.1. Run NPM Install](#1421-run-npm-install)
+      - [1.4.2.2. Create Docker File](#1422-create-docker-file)
+        - [1.4.2.2.1. Docker File Link](#14221-docker-file-link)
+        - [1.4.2.2.2. Build the Frontend Container](#14222-build-the-frontend-container)
+        - [1.4.2.2.3. Run the Frontend Container](#14223-run-the-frontend-container)
+    - [1.4.3. Multiple Containers](#143-multiple-containers)
+      - [1.4.3.1. Create a docker-compose file](#1431-create-a-docker-compose-file)
+  - [1.5. Document the Notification Endpoint for the OpenAI Document](#15-document-the-notification-endpoint-for-the-openai-document)
+    - [1.5.1. API Code](#151-api-code)
+    - [1.5.2. Open API document preview](#152-open-api-document-preview)
+  - [1.6. Write a Flask Backend Endpoint for Notifications](#16-write-a-flask-backend-endpoint-for-notifications)
+    - [1.6.1. Notification Backend Response](#161-notification-backend-response)
+    - [1.6.2. Notification Backend Code Commit Link](#162-notification-backend-code-commit-link)
+  - [1.7. Write a React Page for Notifications](#17-write-a-react-page-for-notifications)
+    - [1.7.1. Notification Frontend Screen](#171-notification-frontend-screen)
+    - [1.7.2. Notification Frontend Code Commit Link](#172-notification-frontend-code-commit-link)
+  - [1.8. Run DynamoDB Local Container and ensure it works](#18-run-dynamodb-local-container-and-ensure-it-works)
+    - [1.8.1. Docker setup for DynamoDB](#181-docker-setup-for-dynamodb)
+      - [1.8.1.1. Make Sure Docker is Running](#1811-make-sure-docker-is-running)
+        - [1.8.1.1.1. Create a table](#18111-create-a-table)
+        - [1.8.1.1.2. Create an Item](#18112-create-an-item)
+        - [1.8.1.1.3. List Tables](#18113-list-tables)
+        - [1.8.1.1.4. Get Records](#18114-get-records)
+  - [1.9. Run Postgres Container and ensure it works](#19-run-postgres-container-and-ensure-it-works)
+    - [1.9.1. Docker setup for Postgres](#191-docker-setup-for-postgres)
+    - [1.9.2. Gitpod client setup for Postgres](#192-gitpod-client-setup-for-postgres)
+    - [1.9.3. Postgres Plugin setup check](#193-postgres-plugin-setup-check)
+  - [1.10. References](#110-references)
+    - [1.10.1. VSCode Docker Extension](#1101-vscode-docker-extension)
+      - [1.10.1.1. Return the container id into an Environment variables](#11011-return-the-container-id-into-an-environment-variables)
+      - [1.10.1.2. Get Container Images or Running Container Ids](#11012-get-container-images-or-running-container-ids)
+      - [1.10.1.3. Send Curl to Test Server](#11013-send-curl-to-test-server)
+      - [1.10.1.4. Check Container Logs](#11014-check-container-logs)
+      - [1.10.1.5. Debugging  adjacent containers with other containers](#11015-debugging--adjacent-containers-with-other-containers)
+      - [1.10.1.6. Gain Access to a Container](#11016-gain-access-to-a-container)
+      - [1.10.1.7. Delete an Image](#11017-delete-an-image)
+      - [1.10.1.8. Overriding Ports](#11018-overriding-ports)
 ---------------
-## Task List of 19/02/2023 to 25/02/2023
+## 1.1. Task List of 19/02/2023 to 25/02/2023
 ---------------
 - [x] Watched Grading Homework Summaries(19/02/2023)
 - [x] Watched Week 1 - Live Streamed Video(19/02/2023)
@@ -74,39 +74,39 @@
 
 
 ---------------
-## Spending Considerations
+## 1.2. Spending Considerations
 ---------------
-### Gitpod
+### 1.2.1. Gitpod
 - upto 50hrs free
 - free 500 credit 
 - Monthly renewal
 
-### Codespaces
+### 1.2.2. Codespaces
  - upto 60hrs free
 
-### Cloud9
+### 1.2.3. Cloud9
  - t2.micro using free tier
  - Better avoid due to cost related difficulty
 
 ---------------
-## Container Security Considerations
+## 1.3. Container Security Considerations
 ---------------
-### What is Container Security?
+### 1.3.1. What is Container Security?
 - Container Security is the practice of protecting your applicatoins hosted on computer services like containers.
 - Common Examples of applications can be SPA, Microservices, API etc
 
-### Why care about cloud security?
+### 1.3.2. Why care about cloud security?
 - Container First Strategy
 - Cloud Native
 - Reducing impact of breach
 - Automation can reduce recovery time to known good state fairly easy
 
-### Why container security requires practice
+### 1.3.3. Why container security requires practice
 - Complexity with containers
 - Relying on CSPs for features
 - UnManaged Requiers a lot more hours of work.
 
-### Container Security Components
+### 1.3.4. Container Security Components
 - Docker & Host Configuration
 - Security Images
 - Secret Management
@@ -115,7 +115,7 @@
 - Monitoring Containers
 - Compliance Frame Works
 
-### Top 10 Security Best Practices
+### 1.3.5. Top 10 Security Best Practices
 - Keep Host & Docker Updated to latest security Patches
 - Docker daemon & containers should run in non-root user mode
 - Image Vulnerability Scanning
@@ -127,18 +127,18 @@
 - Use DevSecOps practices while building application security
 - Ensure all Code is tested for vulnerabilities before production use
 
-### Tools
+### 1.3.6. Tools
 - Snyk (Open Source Available)
 - AWS Secrets Manager  
 - Clair / AWS Inspector 
 - Hashicorp Vault
 ---------------
-## Containerize Application (Dockerfiles, Docker Compose
+## 1.4. Containerize Application (Dockerfiles, Docker Compose
 ---------------
 
-### Backend Docker creation
+### 1.4.1. Backend Docker creation
 
-#### Run Python
+#### 1.4.1.1. Run Python
 
 ```sh
 cd backend-flask
@@ -147,7 +147,7 @@ export BACKEND_URL="*"
 python3 -m flask run --host=0.0.0.0 --port=4567
 cd ..
 ```
-#### Add Dockerfile
+#### 1.4.1.2. Add Dockerfile
 
 Create a file here: `backend-flask/Dockerfile`
 
@@ -161,17 +161,17 @@ ENV FLASK_ENV=development
 EXPOSE ${PORT}
 CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0", "--port=4567"]
 ```
-##### Docker File Link
+##### 1.4.1.2.1. Docker File Link
 [Dockerfile](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/backend-flask/Dockerfile)
 
-##### Build the backend container
+##### 1.4.1.2.2. Build the backend container
 
 ```sh
 docker build -t  backend-flask ./backend-flask
 ```
 ![python_docker_build](../_docs/assets/python_docker_build.png)
 
-##### Run the backend container
+##### 1.4.1.2.3. Run the backend container
  
 ```sh
 docker run --rm -p 4567:4567 -it backend-flask
@@ -179,9 +179,9 @@ docker run --rm -p 4567:4567 -it backend-flask
 ![python_docker_run](../_docs/assets/python_docker_run.png)
 
 
-### Frontend Docker creation
+### 1.4.2. Frontend Docker creation
 
-#### Run NPM Install
+#### 1.4.2.1. Run NPM Install
 
 ```
 cd frontend-react-js
@@ -189,7 +189,7 @@ npm i
 ```
 ![npm_version](../_docs/assets/npm_version.png)
 
-#### Create Docker File
+#### 1.4.2.2. Create Docker File
 
 Create a file here: `frontend-react-js/Dockerfile`
 
@@ -202,27 +202,27 @@ RUN npm install
 EXPOSE ${PORT}
 CMD ["npm", "start"]
 ```
-##### Docker File Link
+##### 1.4.2.2.1. Docker File Link
 [Dockerfile](https://github.com/pradytpk/aws-bootcamp-cruddur-2023/blob/main/frontend-react-js/Dockerfile)
 
 
-##### Build the Frontend Container
+##### 1.4.2.2.2. Build the Frontend Container
 
 ```sh
 docker build -t frontend-react-js ./frontend-react-js
 ```
 ![frontend_docker_build](../_docs/assets/front_docker_build.png)
 
-##### Run the Frontend Container
+##### 1.4.2.2.3. Run the Frontend Container
 
 ```sh
 docker run -p 3000:3000 -d frontend-react-js
 ```
 ![frontend_docker_run](../_docs/assets/front_docker_run.png)
 
-### Multiple Containers
+### 1.4.3. Multiple Containers
 
-#### Create a docker-compose file
+#### 1.4.3.1. Create a docker-compose file
 
 Create `docker-compose.yml` at the root of your project.
 
@@ -253,9 +253,9 @@ networks:
 ```
 
 ---------------
-## Document the Notification Endpoint for the OpenAI Document
+## 1.5. Document the Notification Endpoint for the OpenAI Document
 ---------------
-### API Code
+### 1.5.1. API Code
 ```yml
   /api/activities/notifications: 
     get:
@@ -273,31 +273,31 @@ networks:
                 items:
                   $ref: '#/components/schemas/Activity'
 ```
-### Open API document preview
+### 1.5.2. Open API document preview
 ![notification_openApi](../_docs/assets/notifications_openapi.png)
 
 ---------------
-## Write a Flask Backend Endpoint for Notifications
+## 1.6. Write a Flask Backend Endpoint for Notifications
 ---------------
-### Notification Backend Response
+### 1.6.1. Notification Backend Response
 ![notification_backend_response](../_docs/assets/notification_backend_response.png)
-### Notification Backend Code Commit Link
+### 1.6.2. Notification Backend Code Commit Link
 - https://github.com/pradytpk/aws-bootcamp-cruddur-2023/commit/09c8022b6dac0d96811b8ea60735a939a4681e8c
 
 ---------------
-## Write a React Page for Notifications
+## 1.7. Write a React Page for Notifications
 ---------------
 
-### Notification Frontend Screen
+### 1.7.1. Notification Frontend Screen
 ![notification_frontend_screen](../_docs/assets/notification_frontend_screen.png)
-### Notification Frontend Code Commit Link
+### 1.7.2. Notification Frontend Code Commit Link
 - https://github.com/pradytpk/aws-bootcamp-cruddur-2023/commit/ebcbc6099122e26bff1b0c166d44a0bd764a454d
 
 ---------------
-## Run DynamoDB Local Container and ensure it works
+## 1.8. Run DynamoDB Local Container and ensure it works
 ---------------
 
-### Docker setup for DynamoDB
+### 1.8.1. Docker setup for DynamoDB
 
 ```yaml
 services:
@@ -318,10 +318,10 @@ services:
 volumes: 
 - "./docker/dynamodb:/home/dynamodblocal/data"
 ```
-#### Make Sure Docker is Running
+#### 1.8.1.1. Make Sure Docker is Running
 ![dynamodb_docker](../_docs/assets/docker_dynamodb.png)
 
-##### Create a table
+##### 1.8.1.1.1. Create a table
 ```
 aws dynamodb create-table \
     --endpoint-url http://localhost:8000 \
@@ -335,7 +335,7 @@ aws dynamodb create-table \
 ```
 ![create_table](../_docs/assets/dynamoDB-1.png)
 
-##### Create an Item
+##### 1.8.1.1.2. Create an Item
 ```
 aws dynamodb put-item \
     --endpoint-url http://localhost:8000 \
@@ -345,21 +345,21 @@ aws dynamodb put-item \
     --return-consumed-capacity TOTAL  
 ```
 ![create_item](../_docs/assets/dynamoDB-2.png)
-##### List Tables
+##### 1.8.1.1.3. List Tables
 ```
 aws dynamodb list-tables --endpoint-url http://localhost:8000
 ```
 ![list_table](../_docs/assets/dynamoDB-3.png)
-##### Get Records
+##### 1.8.1.1.4. Get Records
 ```
 aws dynamodb scan --table-name Music --query "Items" --endpoint-url http://localhost:8000
 ```
 ![get_record](../_docs/assets/dynamoDB-4.png)
 
 ---------------
-## Run Postgres Container and ensure it works
+## 1.9. Run Postgres Container and ensure it works
 ---------------
-### Docker setup for Postgres
+### 1.9.1. Docker setup for Postgres
 ```yaml
 services:
   db:
@@ -386,7 +386,7 @@ volumes:
 ```
 ![Postgres_docker_Setup](../_docs/assets/docker_postgresdb.png)
 
-### Gitpod client setup for Postgres
+### 1.9.2. Gitpod client setup for Postgres
 
 ```sh
   - name: postgres
@@ -398,16 +398,16 @@ volumes:
 ```
 ![Postgres_Client_Setup](../_docs/assets/dataconnection_postgresclient.png)
 
-### Postgres Plugin setup check
+### 1.9.3. Postgres Plugin setup check
 ![plugin_check](../_docs/assets/dataconnection_postgres.png)
 
 ---------------
-## References
+## 1.10. References
 ---------------
 Good Article for Debugging Connection Refused
 https://pythonspeed.com/articles/docker-connection-refused/
 
-###  VSCode Docker Extension
+###  1.10.1. VSCode Docker Extension
 
 Docker for VSCode makes it easy to work with Docker
 
@@ -426,13 +426,13 @@ unset BACKEND_URL="*"
 docker container run --rm -p 4567:4567 -d backend-flask
 ```
 
-#### Return the container id into an Environment variables
+#### 1.10.1.1. Return the container id into an Environment variables
 
 ```sh
 CONTAINER_ID=$(docker run --rm -p 4567:4567 -d backend-flask)
 ```
 
-#### Get Container Images or Running Container Ids
+#### 1.10.1.2. Get Container Images or Running Container Ids
 
 ```
 docker ps
@@ -440,13 +440,13 @@ docker images
 ```
 
 
-#### Send Curl to Test Server
+#### 1.10.1.3. Send Curl to Test Server
 
 ```sh
 curl -X GET http://localhost:4567/api/activities/home -H "Accept: application/json" -H "Content-Type: application/json"
 ```
 
-#### Check Container Logs
+#### 1.10.1.4. Check Container Logs
 
 ```sh
 docker logs CONTAINER_ID -f
@@ -454,7 +454,7 @@ docker logs backend-flask -f
 docker logs $CONTAINER_ID -f
 ```
 
-####  Debugging  adjacent containers with other containers
+####  1.10.1.5. Debugging  adjacent containers with other containers
 
 ```sh
 docker run --rm -it curlimages/curl "-X GET http://localhost:4567/api/activities/home -H \"Accept: application/json\" -H \"Content-Type: application/json\""
@@ -466,14 +466,14 @@ busybosy is often used for debugging since it install a bunch of thing
 docker run --rm -it busybosy
 ```
 
-#### Gain Access to a Container
+#### 1.10.1.6. Gain Access to a Container
 
 ```sh
 docker exec CONTAINER_ID -it /bin/bash
 ```
 
 > You can just right click a container and see logs in VSCode with Docker extension
-#### Delete an Image
+#### 1.10.1.7. Delete an Image
 
 ```sh
 docker image rm backend-flask --force
@@ -481,7 +481,7 @@ docker image rm backend-flask --force
 
 > docker rmi backend-flask is the legacy syntax, you might see this is old docker tutorials and articles.
 > There are some cases where you need to use the --force
-#### Overriding Ports
+#### 1.10.1.8. Overriding Ports
 
 ```sh
 FLASK_ENV=production PORT=8080 docker run -p 4567:4567 -it backend-flask
