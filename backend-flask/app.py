@@ -28,6 +28,10 @@ from opentelemetry.sdk.trace.export import ConsoleSpanExporter,SimpleSpanProcess
 # import logging
 # from time import strftime
 
+# aws xray
+# from aws_xray_sdk.core import xray_recorder
+# from aws_xray_sdk.ext.flask.middleware import XRayMiddleware
+
 # Configuring Logger to Use CloudWatch
 # LOGGER = logging.getLogger(__name__)
 # LOGGER.setLevel(logging.DEBUG)
@@ -36,6 +40,10 @@ from opentelemetry.sdk.trace.export import ConsoleSpanExporter,SimpleSpanProcess
 # LOGGER.addHandler(console_handler)
 # LOGGER.addHandler(cw_handler)
 # LOGGER.info("Test log")
+
+# X-RAY
+# xray_url = os.getenv("AWS_XRAY_URL")
+# xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 
 # HoneyComb
 #Initialize tracing and an exporter that can send data to Honeycomb
@@ -51,6 +59,8 @@ trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 
 app = Flask(__name__)
+# X RAY
+# XRayMiddleware(app, xray_recorder)
 
 # HoneyComb
 # Initialize automatic instrumentation with Flask
