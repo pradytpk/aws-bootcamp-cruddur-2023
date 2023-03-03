@@ -1,71 +1,80 @@
 # 1. Week 2 — Distributed Tracing
 - [1. Week 2 — Distributed Tracing](#1-week-2--distributed-tracing)
   - [1.1. Task List](#11-task-list)
-  - [1.2. Observability vs Monitoring](#12-observability-vs-monitoring)
-    - [1.2.1. Current State of logging](#121-current-state-of-logging)
-    - [1.2.2. Why logging is hard](#122-why-logging-is-hard)
-    - [1.2.3. Why Observability](#123-why-observability)
-    - [1.2.4. Observability vs Monitoring](#124-observability-vs-monitoring)
-    - [1.2.5. Observability in AWS](#125-observability-in-aws)
-    - [1.2.6. 3 Pillar of observability](#126-3-pillar-of-observability)
-    - [1.2.7. Building Security Metrics logs for Tracing](#127-building-security-metrics-logs-for-tracing)
-    - [1.2.8. Central Observability Platform - Security](#128-central-observability-platform---security)
-  - [1.3. HoneyComb](#13-honeycomb)
-    - [1.3.1. Setup Honeycomb API key in gitpod](#131-setup-honeycomb-api-key-in-gitpod)
-    - [1.3.2. Add the following Environment Variables to `backend-flask` in docker compose](#132-add-the-following-environment-variables-to-backend-flask-in-docker-compose)
-    - [1.3.3. Add the opentelemetry packages in the `requirements.txt`](#133-add-the-opentelemetry-packages-in-the-requirementstxt)
-    - [1.3.4. Then Install these dependencies:](#134-then-install-these-dependencies)
-    - [1.3.5. Add to the `app.py`](#135-add-to-the-apppy)
-    - [1.3.6. Initialize tracing and an exporter that can send data to Honeycomb](#136-initialize-tracing-and-an-exporter-that-can-send-data-to-honeycomb)
-    - [1.3.7. Initialize automatic instrumentation with Flask](#137-initialize-automatic-instrumentation-with-flask)
-    - [1.3.8. Acquiring a Tracer](#138-acquiring-a-tracer)
-    - [1.3.9. Creating spans](#139-creating-spans)
-    - [1.3.10. Exploring Honeycomb](#1310-exploring-honeycomb)
-      - [1.3.10.1. Span Logs](#13101-span-logs)
-      - [1.3.10.2. app.now Logs](#13102-appnow-logs)
-      - [1.3.10.3. app.result\_length Logs](#13103-appresult_length-logs)
-      - [1.3.10.4. Visualize MAX(app.result\_length)](#13104-visualize-maxappresult_length)
-      - [1.3.10.5. Visualize HEATMAP(duration\_ms) and P90(duration\_ms)](#13105-visualize-heatmapduration_ms-and-p90duration_ms)
-  - [1.4. CloudWatch Logs](#14-cloudwatch-logs)
-    - [1.4.1. Setup CloudWatch](#141-setup-cloudwatch)
-    - [1.4.2. Install the CloudWatch library](#142-install-the-cloudwatch-library)
-    - [1.4.3. Configure cloudwatch in `app.py`](#143-configure-cloudwatch-in-apppy)
-    - [1.4.4. Configuring Logger to Use CloudWatch in `app.py`](#144-configuring-logger-to-use-cloudwatch-in-apppy)
-    - [1.4.5. For every request the logger should generate response use the below code in `app.py`](#145-for-every-request-the-logger-should-generate-response-use-the-below-code-in-apppy)
-    - [1.4.6. Setup logger in `home_activities.py`](#146-setup-logger-in-home_activitiespy)
-    - [1.4.7. Setup the env var in your backend-flask for `docker-compose.yml`](#147-setup-the-env-var-in-your-backend-flask-for-docker-composeyml)
-    - [1.4.8. Check in cloudwatch for the logs](#148-check-in-cloudwatch-for-the-logs)
-  - [1.5. X-Ray](#15-x-ray)
-    - [1.5.1. Setup X-Ray](#151-setup-x-ray)
-    - [1.5.2. Install python dependencies](#152-install-python-dependencies)
-    - [1.5.3. Configuring xray to use CloudWatch in `app.py`](#153-configuring-xray-to-use-cloudwatch-in-apppy)
-    - [1.5.4. Setup AWS X-Ray Resources](#154-setup-aws-x-ray-resources)
-    - [1.5.5. Setup AWS X-Ray Group](#155-setup-aws-x-ray-group)
-    - [1.5.6. Setup AWS X-Ray Sampling Groups](#156-setup-aws-x-ray-sampling-groups)
-    - [1.5.7. Add Deamon Service to Docker Compose](#157-add-deamon-service-to-docker-compose)
-    - [1.5.8. Add these two env vars to our backend-flask in our `docker-compose.yml` file](#158-add-these-two-env-vars-to-our-backend-flask-in-our-docker-composeyml-file)
-    - [1.5.9. Hit some backend api activities and check xrays in aws](#159-hit-some-backend-api-activities-and-check-xrays-in-aws)
-  - [1.6. Rollbar](#16-rollbar)
-    - [Setup Rollbar](#setup-rollbar)
-    - [Install deps](#install-deps)
-    - [We need to set our access token](#we-need-to-set-our-access-token)
-    - [Import for Rollbar](#import-for-rollbar)
-    - [Initialize Rollbar](#initialize-rollbar)
-    - [Add an endpoint just for testing rollbar to `app.py`](#add-an-endpoint-just-for-testing-rollbar-to-apppy)
-    - [Add to backend-flask for `docker-compose.yml`](#add-to-backend-flask-for-docker-composeyml)
-    - [Rollbar walk through](#rollbar-walk-through)
-      - [Warning log](#warning-log)
-      - [Error log](#error-log)
+  - [1.2. Week 2 - Spending Considerations](#12-week-2---spending-considerations)
+  - [1.3. Observability vs Monitoring](#13-observability-vs-monitoring)
+    - [1.3.1. Current State of logging](#131-current-state-of-logging)
+    - [1.3.2. Why logging is hard](#132-why-logging-is-hard)
+    - [1.3.3. Why Observability](#133-why-observability)
+    - [1.3.4. Observability vs Monitoring](#134-observability-vs-monitoring)
+    - [1.3.5. Observability in AWS](#135-observability-in-aws)
+    - [1.3.6. 3 Pillar of observability](#136-3-pillar-of-observability)
+    - [1.3.7. Building Security Metrics logs for Tracing](#137-building-security-metrics-logs-for-tracing)
+    - [1.3.8. Central Observability Platform - Security](#138-central-observability-platform---security)
+  - [1.4. HoneyComb](#14-honeycomb)
+    - [1.4.1. Setup Honeycomb API key in gitpod](#141-setup-honeycomb-api-key-in-gitpod)
+    - [1.4.2. Add the following Environment Variables to `backend-flask` in docker compose](#142-add-the-following-environment-variables-to-backend-flask-in-docker-compose)
+    - [1.4.3. Add the opentelemetry packages in the `requirements.txt`](#143-add-the-opentelemetry-packages-in-the-requirementstxt)
+    - [1.4.4. Then Install these dependencies:](#144-then-install-these-dependencies)
+    - [1.4.5. Add to the `app.py`](#145-add-to-the-apppy)
+    - [1.4.6. Initialize tracing and an exporter that can send data to Honeycomb](#146-initialize-tracing-and-an-exporter-that-can-send-data-to-honeycomb)
+    - [1.4.7. Initialize automatic instrumentation with Flask](#147-initialize-automatic-instrumentation-with-flask)
+    - [1.4.8. Acquiring a Tracer](#148-acquiring-a-tracer)
+    - [1.4.9. Creating spans](#149-creating-spans)
+    - [1.4.10. Exploring Honeycomb](#1410-exploring-honeycomb)
+      - [1.4.10.1. Span Logs](#14101-span-logs)
+      - [1.4.10.2. app.now Logs](#14102-appnow-logs)
+      - [1.4.10.3. app.result\_length Logs](#14103-appresult_length-logs)
+      - [1.4.10.4. Visualize MAX(app.result\_length)](#14104-visualize-maxappresult_length)
+      - [1.4.10.5. Visualize HEATMAP(duration\_ms) and P90(duration\_ms)](#14105-visualize-heatmapduration_ms-and-p90duration_ms)
+  - [1.5. CloudWatch Logs](#15-cloudwatch-logs)
+    - [1.5.1. Setup CloudWatch](#151-setup-cloudwatch)
+    - [1.5.2. Install the CloudWatch library](#152-install-the-cloudwatch-library)
+    - [1.5.3. Configure cloudwatch in `app.py`](#153-configure-cloudwatch-in-apppy)
+    - [1.5.4. Configuring Logger to Use CloudWatch in `app.py`](#154-configuring-logger-to-use-cloudwatch-in-apppy)
+    - [1.5.5. For every request the logger should generate response use the below code in `app.py`](#155-for-every-request-the-logger-should-generate-response-use-the-below-code-in-apppy)
+    - [1.5.6. Setup logger in `home_activities.py`](#156-setup-logger-in-home_activitiespy)
+    - [1.5.7. Setup the env var in your backend-flask for `docker-compose.yml`](#157-setup-the-env-var-in-your-backend-flask-for-docker-composeyml)
+    - [1.5.8. Check in cloudwatch for the logs](#158-check-in-cloudwatch-for-the-logs)
+  - [1.6. X-Ray](#16-x-ray)
+    - [1.6.1. Setup X-Ray](#161-setup-x-ray)
+    - [1.6.2. Install python dependencies](#162-install-python-dependencies)
+    - [1.6.3. Configuring xray to use CloudWatch in `app.py`](#163-configuring-xray-to-use-cloudwatch-in-apppy)
+    - [1.6.4. Setup AWS X-Ray Resources](#164-setup-aws-x-ray-resources)
+    - [1.6.5. Setup AWS X-Ray Group](#165-setup-aws-x-ray-group)
+    - [1.6.6. Setup AWS X-Ray Sampling Groups](#166-setup-aws-x-ray-sampling-groups)
+    - [1.6.7. Add Deamon Service to Docker Compose](#167-add-deamon-service-to-docker-compose)
+    - [1.6.8. Add these two env vars to our backend-flask in our `docker-compose.yml` file](#168-add-these-two-env-vars-to-our-backend-flask-in-our-docker-composeyml-file)
+    - [1.6.9. Hit some backend api activities and check xrays in aws](#169-hit-some-backend-api-activities-and-check-xrays-in-aws)
+  - [1.7. Rollbar](#17-rollbar)
+    - [1.7.1. Setup Rollbar](#171-setup-rollbar)
+    - [1.7.2. Install deps](#172-install-deps)
+    - [1.7.3. We need to set our access token](#173-we-need-to-set-our-access-token)
+    - [1.7.4. Import for Rollbar](#174-import-for-rollbar)
+    - [1.7.5. Initialize Rollbar](#175-initialize-rollbar)
+    - [1.7.6. Add an endpoint just for testing rollbar to `app.py`](#176-add-an-endpoint-just-for-testing-rollbar-to-apppy)
+    - [1.7.7. Add to backend-flask for `docker-compose.yml`](#177-add-to-backend-flask-for-docker-composeyml)
+    - [1.7.8. Rollbar walk through](#178-rollbar-walk-through)
+      - [1.7.8.1. Warning log](#1781-warning-log)
+      - [1.7.8.2. Error log](#1782-error-log)
 ## 1.1. Task List
 - [x] Watch Week 2 Live-Stream Video(26/02/2023)
-- [ ] Watch Chirag Week 2 - Spending Considerations
+- [x] Watch Chirag Week 2 - Spending Considerations(03/03/2023)
 - [x] Watched Ashish's Week 2 - Observability Security Considerations(27/02/2023)
 - [x] Instrument Honeycomb with OTEL(27/02/2023)
 - [x] Instrument AWS X-Ray(27/02/2023)
 - [x] Configure custom logger to send to CloudWatch Logs(27/02/2023)
 - [x] Integrate Rollbar and capture and error(28/02/2023)
-## 1.2. Observability vs Monitoring
-### 1.2.1. Current State of logging
+
+## 1.2. Week 2 - Spending Considerations
+- Honeycomb spend information(2 Millions)
+- Rollbar is for error data(5000 events)
+- AWS X-Rays 1,00,000 Forever free
+  - 1 Million is free
+- AWS Cloudwatch 10 metrics always free
+  - 5GB is free
+## 1.3. Observability vs Monitoring
+### 1.3.1. Current State of logging
 - On-Premise Logs
   - infrastructure
   - Applications
@@ -77,12 +86,12 @@
   - Anti-Virus
   - Firewall
   
-### 1.2.2. Why logging is hard
+### 1.3.2. Why logging is hard
 - Time consuming
 - Tons of data
 - Increase alert fatigue
 
-### 1.2.3. Why Observability
+### 1.3.3. Why Observability
 - Decreased Alert Fatigue for Security and Operation teams
 - Visibility of end to end of logs,metrics and tracing
 - Troubleshoot
@@ -91,16 +100,16 @@
 - Reduce overall operational cost
 - Increase customer satisfaction
 
-### 1.2.4. Observability vs Monitoring
-|Factors| Observability  | Monitoring  |
-|---|---|---|
-|Fault Management|  why did it occur | when & where did it occurs  |
-|Recovery|  What can i do to prevent the issue from reoccurring | Is my system back up?  |
+### 1.3.4. Observability vs Monitoring
+| Factors          | Observability                                       | Monitoring                 |
+| ---------------- | --------------------------------------------------- | -------------------------- |
+| Fault Management | why did it occur                                    | when & where did it occurs |
+| Recovery         | What can i do to prevent the issue from reoccurring | Is my system back up?      |
 
-### 1.2.5. Observability in AWS
+### 1.3.5. Observability in AWS
 - The way to  breakdown the entire application for viewing it for better understanding
 
-### 1.2.6. 3 Pillar of observability
+### 1.3.6. 3 Pillar of observability
 1. Metrics
    - AWS Cloudwatch
 2. Traces
@@ -108,7 +117,7 @@
 3. Logs
    - AWS Cloudwatch
    - AWS Trail
-### 1.2.7. Building Security Metrics logs for Tracing
+### 1.3.7. Building Security Metrics logs for Tracing
 1. Which Application?
 2. TYpe of Application?
 3. Threat Modelling Session
@@ -119,13 +128,13 @@
 8. Dashboard for Practical Attack
 9. Repeat for next application
 
-### 1.2.8. Central Observability Platform - Security
+### 1.3.8. Central Observability Platform - Security
 - Event driven Architecture
 - Open Source Dashboards
 - SIEM(Security Incident and Event Management)
 
-## 1.3. HoneyComb
-### 1.3.1. Setup Honeycomb API key in gitpod
+## 1.4. HoneyComb
+### 1.4.1. Setup Honeycomb API key in gitpod
 - Create a new Environment in ui.honeycomb.io
 - Get the api keys for the services
 ```sh
@@ -137,7 +146,7 @@ env | grep HONEY
 ```
 ![honeycomb](../_docs/assets/honeycombapi_setup_confirmation.png)
 
-### 1.3.2. Add the following Environment Variables to `backend-flask` in docker compose
+### 1.4.2. Add the following Environment Variables to `backend-flask` in docker compose
 
 ```yml
 OTEL_EXPORTER_OTLP_ENDPOINT: "https://api.honeycomb.io"
@@ -145,7 +154,7 @@ OTEL_EXPORTER_OTLP_HEADERS: "x-honeycomb-team=${HONEYCOMB_API_KEY}"
 OTEL_SERVICE_NAME: "${HONEYCOMB_SERVICE_NAME}"
 ```
 
-### 1.3.3. Add the opentelemetry packages in the `requirements.txt`
+### 1.4.3. Add the opentelemetry packages in the `requirements.txt`
 - Add the following files to our `\aws-bootcamp-cruddur-2023\backend-flask\requirements.txt`
 
 ```
@@ -156,7 +165,7 @@ opentelemetry-instrumentation-flask
 opentelemetry-instrumentation-requests
 ```
 
-### 1.3.4. Then Install these dependencies:
+### 1.4.4. Then Install these dependencies:
 
 ```sh
 cd backend-flask/
@@ -164,7 +173,7 @@ pip install -r requirements.txt
 ```
 ![opentelemetry](../_docs/assets/opentelemetry.png)
 
-### 1.3.5. Add to the `app.py`
+### 1.4.5. Add to the `app.py`
 
 ```py
 from opentelemetry import trace
@@ -175,7 +184,7 @@ from opentelemetry.sdk.trace import TracerProvider
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
 ```
 
-### 1.3.6. Initialize tracing and an exporter that can send data to Honeycomb
+### 1.4.6. Initialize tracing and an exporter that can send data to Honeycomb
 
 ```py
 provider = TracerProvider()
@@ -185,7 +194,7 @@ trace.set_tracer_provider(provider)
 tracer = trace.get_tracer(__name__)
 ```
 
-### 1.3.7. Initialize automatic instrumentation with Flask
+### 1.4.7. Initialize automatic instrumentation with Flask
 
 ```py
 app = Flask(__name__)
@@ -193,13 +202,13 @@ FlaskInstrumentor().instrument_app(app)
 RequestsInstrumentor().instrument()
 ```
 
-### 1.3.8. Acquiring a Tracer
+### 1.4.8. Acquiring a Tracer
 
 ```py
 trace = trace.get_tracer("home.activities")
 ```
 
-### 1.3.9. Creating spans
+### 1.4.9. Creating spans
 
 ```py
 
@@ -207,40 +216,40 @@ with tracer.start_as_current_span("http-handler"):
     with tracer.start_as_current_span("my-cool-function"):
 
 ```
-### 1.3.10. Exploring Honeycomb
-#### 1.3.10.1. Span Logs
+### 1.4.10. Exploring Honeycomb
+#### 1.4.10.1. Span Logs
 ![honeycomb_span](../_docs/assets/honeycomb_span.png)
 ![honeycomb_span](../_docs/assets/honeycomb_span1.png)
-#### 1.3.10.2. app.now Logs
+#### 1.4.10.2. app.now Logs
 ![honeycomb_span](../_docs/assets/honeycomb_span2.png)
-#### 1.3.10.3. app.result_length Logs
+#### 1.4.10.3. app.result_length Logs
 ![honeycomb_span](../_docs/assets/honeycomb_span3.png)
-#### 1.3.10.4. Visualize MAX(app.result_length)
+#### 1.4.10.4. Visualize MAX(app.result_length)
 ![honeycomb_span](../_docs/assets/honeycomb_span4.png)
-#### 1.3.10.5. Visualize HEATMAP(duration_ms) and P90(duration_ms)
+#### 1.4.10.5. Visualize HEATMAP(duration_ms) and P90(duration_ms)
 ![honeycomb_span](../_docs/assets/honeycomb_span5.png)
 
-## 1.4. CloudWatch Logs
+## 1.5. CloudWatch Logs
 
-### 1.4.1. Setup CloudWatch
+### 1.5.1. Setup CloudWatch
 
 Add to the `requirements.txt`
 
 ```
 watchtower
 ```
-### 1.4.2. Install the CloudWatch library
+### 1.5.2. Install the CloudWatch library
 ```sh
 pip install -r requirements.txt
 ```
-### 1.4.3. Configure cloudwatch in `app.py`
+### 1.5.3. Configure cloudwatch in `app.py`
 
 ```
 import watchtower
 import logging
 from time import strftime
 ```
-### 1.4.4. Configuring Logger to Use CloudWatch in `app.py`
+### 1.5.4. Configuring Logger to Use CloudWatch in `app.py`
 ```py
 
 LOGGER = logging.getLogger(__name__)
@@ -251,7 +260,7 @@ LOGGER.addHandler(console_handler)
 LOGGER.addHandler(cw_handler)
 LOGGER.info("Test log")
 ```
-### 1.4.5. For every request the logger should generate response use the below code in `app.py`
+### 1.5.5. For every request the logger should generate response use the below code in `app.py`
 ```py
 @app.after_request
 def after_request(response):
@@ -260,38 +269,38 @@ def after_request(response):
     return response
 ```
 
-### 1.4.6. Setup logger in `home_activities.py`
+### 1.5.6. Setup logger in `home_activities.py`
 ```py
 LOGGER.info('Hello Cloudwatch! from  /api/activities/home')
 ```
-### 1.4.7. Setup the env var in your backend-flask for `docker-compose.yml`
+### 1.5.7. Setup the env var in your backend-flask for `docker-compose.yml`
 
 ```yml
       AWS_DEFAULT_REGION: "${AWS_DEFAULT_REGION}"
       AWS_ACCESS_KEY_ID: "${AWS_ACCESS_KEY_ID}"
       AWS_SECRET_ACCESS_KEY: "${AWS_SECRET_ACCESS_KEY}"
 ```
-### 1.4.8. Check in cloudwatch for the logs
+### 1.5.8. Check in cloudwatch for the logs
 ![cloudwatch](../_docs/assets/cloudwatchlog0.png)
 ![cloudwatch](../_docs/assets/cloudwatchlog1.png)
 ![cloudwatch](../_docs/assets/cloudwatchlog2.png)
 
-## 1.5. X-Ray
+## 1.6. X-Ray
 
-### 1.5.1. Setup X-Ray
+### 1.6.1. Setup X-Ray
 Add to the `requirements.txt`
 
 ```py
 aws-xray-sdk
 ```
 
-### 1.5.2. Install python dependencies
+### 1.6.2. Install python dependencies
 
 ```sh
 pip install -r requirements.txt
 ```
 
-###  1.5.3. Configuring xray to use CloudWatch in `app.py`
+###  1.6.3. Configuring xray to use CloudWatch in `app.py`
 
 ```py
 from aws_xray_sdk.core import xray_recorder
@@ -301,7 +310,7 @@ xray_recorder.configure(service='backend-flask', dynamic_naming=xray_url)
 XRayMiddleware(app, xray_recorder)
 ```
 
-###  1.5.4. Setup AWS X-Ray Resources
+###  1.6.4. Setup AWS X-Ray Resources
 
 Add `aws/json/xray.json`
 
@@ -322,7 +331,7 @@ Add `aws/json/xray.json`
   }
 }
 ```
-###  1.5.5. Setup AWS X-Ray Group
+###  1.6.5. Setup AWS X-Ray Group
 ```sh
 FLASK_ADDRESS="https://4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}"
 aws xray create-group \
@@ -332,14 +341,14 @@ aws xray create-group \
 ![xray](../_docs/assets/xray1.png)
 ![xray](../_docs/assets/xray2.png)
 
-###  1.5.6. Setup AWS X-Ray Sampling Groups
+###  1.6.6. Setup AWS X-Ray Sampling Groups
 ```sh
 aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
 ```
 ![xray](../_docs/assets/xray3.png)
 ![xray](../_docs/assets/xray4.png)
 
-### 1.5.7. Add Deamon Service to Docker Compose
+### 1.6.7. Add Deamon Service to Docker Compose
 
 ```yml
   xray-daemon:
@@ -354,36 +363,36 @@ aws xray create-sampling-rule --cli-input-json file://aws/json/xray.json
       - 2000:2000/udp
 ```
 
-### 1.5.8. Add these two env vars to our backend-flask in our `docker-compose.yml` file
+### 1.6.8. Add these two env vars to our backend-flask in our `docker-compose.yml` file
 
 ```yml
       AWS_XRAY_URL: "*4567-${GITPOD_WORKSPACE_ID}.${GITPOD_WORKSPACE_CLUSTER_HOST}*"
       AWS_XRAY_DAEMON_ADDRESS: "xray-daemon:2000"
 ```
 
-### 1.5.9. Hit some backend api activities and check xrays in aws
+### 1.6.9. Hit some backend api activities and check xrays in aws
 ![aws1](../_docs/assets/demoan1.png)
 ![aws1](../_docs/assets/demoan2.png)
 
 
-## 1.6. Rollbar
+## 1.7. Rollbar
 - Create a new project in Rollbar called `Cruddur`
 - https://rollbar.com/
 
-### Setup Rollbar
+### 1.7.1. Setup Rollbar
 - Add to `requirements.txt`
 
 ```
 blinker
 rollbar
 ```
-### Install deps
+### 1.7.2. Install deps
 
 ```sh
 pip install -r requirements.txt
 ```
 
-### We need to set our access token
+### 1.7.3. We need to set our access token
 
 ```sh
 export ROLLBAR_ACCESS_TOKEN=""
@@ -391,14 +400,14 @@ gp env ROLLBAR_ACCESS_TOKEN=""
 ```
 ![rollbar](../_docs/assets/rollbar.png)
 
-### Import for Rollbar
+### 1.7.4. Import for Rollbar
 
 ```py
 import rollbar
 import rollbar.contrib.flask
 from flask import got_request_exception
 ```
-### Initialize Rollbar
+### 1.7.5. Initialize Rollbar
 ```py
 rollbar_access_token = os.getenv('ROLLBAR_ACCESS_TOKEN')
 @app.before_first_request
@@ -417,7 +426,7 @@ def init_rollbar():
     got_request_exception.connect(rollbar.contrib.flask.report_exception, app)
 ```
 
-### Add an endpoint just for testing rollbar to `app.py`
+### 1.7.6. Add an endpoint just for testing rollbar to `app.py`
 
 ```py
 @app.route('/rollbar/test')
@@ -426,15 +435,15 @@ def rollbar_test():
     return "Hello World!"
 ```
 
-### Add to backend-flask for `docker-compose.yml`
+### 1.7.7. Add to backend-flask for `docker-compose.yml`
 
 ```yml
 ROLLBAR_ACCESS_TOKEN: "${ROLLBAR_ACCESS_TOKEN}"
 ```
 
-### Rollbar walk through
-#### Warning log
+### 1.7.8. Rollbar walk through
+#### 1.7.8.1. Warning log
 ![rollbar2](../_docs/assets/rollbar1.png) 
-#### Error log
+#### 1.7.8.2. Error log
 ![rollbar3](../_docs/assets/rollbar500.png) 
 [Rollbar Flask Example](https://github.com/rollbar/rollbar-flask-example/blob/master/hello.py)
