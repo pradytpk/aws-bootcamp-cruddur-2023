@@ -18,7 +18,16 @@
     - [1.5.2. Cruddur Code Verification check](#152-cruddur-code-verification-check)
     - [1.5.3. AWS user status check](#153-aws-user-status-check)
   - [1.6. Implement Custom Recovery Page](#16-implement-custom-recovery-page)
-    - [1.6.1. Authenticating Server Side](#161-authenticating-server-side)
+  - [1.7. Authenticating Server Side](#17-authenticating-server-side)
+    - [1.7.1. Without Authenticating](#171-without-authenticating)
+    - [1.7.2. With Authenticating](#172-with-authenticating)
+  - [1.8. Amazon Cognito Security Best Practices](#18-amazon-cognito-security-best-practices)
+    - [1.8.1. Common Types of App Authorization](#181-common-types-of-app-authorization)
+    - [1.8.2. What is Decentralized Authentication](#182-what-is-decentralized-authentication)
+    - [What is Amazon Cognito](#what-is-amazon-cognito)
+    - [Why use Amazon Cognito](#why-use-amazon-cognito)
+    - [Best Practices](#best-practices)
+    - [Note](#note)
 
 ##  1.1. Task List
 - [x] Watch Week 3 Live-Stream Video(05/03/2023)
@@ -28,10 +37,10 @@
 - [x] Implement Custom Signup Page(07/03/2023)
 - [x] Implement Custom Confirmation Page(07/03/2023)
 - [x] Implement Custom Recovery Page(07/03/2023)
-- [ ] Cognito JWT Server Side Verify(08/03/2023)
-- [ ] Exploring JWTs
-- [ ] Improving UI Contrast and Implementing CSS Variables for Theming
-- [ ] Amazon Cognito Security Best Practices
+- [x] Cognito JWT Server Side Verify(08/03/2023)
+- [x] Exploring JWTs(09/03/2023)
+- [x] Improving UI Contrast and Implementing CSS Variables for Theming(09/03/2023)
+- [x] Amazon Cognito Security Best Practices(10/03/2023)
 
 
 ## 1.2. AWS Cognito and AWS Amplify
@@ -350,7 +359,7 @@ const onsubmit_confirm_code = async (event) => {
 ```
 ![recovery](../_docs/assets/recovery.png)
 ![recovery](../_docs/assets/recovery-1.png)
-### 1.6.1. Authenticating Server Side
+## 1.7. Authenticating Server Side
 - Add in the `HomeFeedPage.js` a header eto pass along the access token
 ```js
   headers: {
@@ -367,3 +376,46 @@ cors = CORS(
   methods="OPTIONS,GET,HEAD,POST"
 )
 ```
+### 1.7.1. Without Authenticating
+![without](../_docs/assets/without.png)
+
+### 1.7.2. With Authenticating
+![without](../_docs/assets/without-success.png)
+
+## 1.8. Amazon Cognito Security Best Practices
+### 1.8.1. Common Types of App Authorization
+- OAuth
+- OpenID Connect
+- Username and password
+- SAML authentication
+- Single Sign On 
+- Identity Provider
+- Traditional Authentication
+
+### 1.8.2. What is Decentralized Authentication
+- Decentralized authentication simply means that there is no central authority needed to verify your identity, i.e., decentralized identifiers. 
+- DIDs (Decentralized Identifiers) are a special type of identifier that allows for decentralized, verified digital identification.
+
+### What is Amazon Cognito
+- Cognito User Pool
+- Cognito Identity Pool
+- Amazon Cognito lets you easily add user sign-up and authentication to your mobile and web apps
+
+### Why use Amazon Cognito
+- User Directory for customers
+- Ability to access AWS Resources for the application being built
+- Identity Broker for AWS Resources with Temporary credentials
+- Can extend users to AWS resources easily
+### Best Practices
+- AWS services - API Gateway,AWS Resources shared with the APP client
+- AWS WAF with web ACLs for rate limiting,allow/deny list etc
+- Amazon cognito compliance 
+- Amazon organizations SCP
+- AWS Cloud Trail is enabled and monitored to trigger alerts on malicious attacks.
+- APP user LCM
+- Encryption
+- JWT Authentication
+- Access Token Scope
+### Note
+- Token LCM
+- LCM
