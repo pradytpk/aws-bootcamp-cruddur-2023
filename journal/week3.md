@@ -24,10 +24,10 @@
   - [1.8. Amazon Cognito Security Best Practices](#18-amazon-cognito-security-best-practices)
     - [1.8.1. Common Types of App Authorization](#181-common-types-of-app-authorization)
     - [1.8.2. What is Decentralized Authentication](#182-what-is-decentralized-authentication)
-    - [What is Amazon Cognito](#what-is-amazon-cognito)
-    - [Why use Amazon Cognito](#why-use-amazon-cognito)
-    - [Best Practices](#best-practices)
-    - [Note](#note)
+    - [1.8.3. What is Amazon Cognito](#183-what-is-amazon-cognito)
+    - [1.8.4. Why use Amazon Cognito](#184-why-use-amazon-cognito)
+    - [1.8.5. Best Practices](#185-best-practices)
+    - [1.8.6. Note](#186-note)
 
 ##  1.1. Task List
 - [x] Watch Week 3 Live-Stream Video(05/03/2023)
@@ -396,17 +396,17 @@ cors = CORS(
 - Decentralized authentication simply means that there is no central authority needed to verify your identity, i.e., decentralized identifiers. 
 - DIDs (Decentralized Identifiers) are a special type of identifier that allows for decentralized, verified digital identification.
 
-### What is Amazon Cognito
+### 1.8.3. What is Amazon Cognito
 - Cognito User Pool
 - Cognito Identity Pool
 - Amazon Cognito lets you easily add user sign-up and authentication to your mobile and web apps
 
-### Why use Amazon Cognito
+### 1.8.4. Why use Amazon Cognito
 - User Directory for customers
 - Ability to access AWS Resources for the application being built
 - Identity Broker for AWS Resources with Temporary credentials
 - Can extend users to AWS resources easily
-### Best Practices
+### 1.8.5. Best Practices
 - AWS services - API Gateway,AWS Resources shared with the APP client
 - AWS WAF with web ACLs for rate limiting,allow/deny list etc
 - Amazon cognito compliance 
@@ -416,6 +416,6 @@ cors = CORS(
 - Encryption
 - JWT Authentication
 - Access Token Scope
-### Note
+### 1.8.6. Note
 - Token LCM
 - LCM
