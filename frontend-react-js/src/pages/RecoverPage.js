@@ -118,12 +118,17 @@ export default function RecoverPage() {
   }
 
   const success = () => {
-    return (<form>
-      <p>Your password has been successfully reset!</p>
-      <Link to="/signin" className="proceed">Proceed to Signin</Link>
-    </form>
-    )
-  }
+    return (
+      <form>
+        <p style={{color: 'white'}}>Your password has been successfully reset!</p>
+        <div className='submit'>
+          <Link to='/signin' className='proceed' style={{color: '#8819f5'}}>
+            Proceed to Signin
+          </Link>
+        </div>
+      </form>
+    );
+  };
 
   let form;
   if (formState == 'send_code') {
